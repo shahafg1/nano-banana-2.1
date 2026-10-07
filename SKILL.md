@@ -39,6 +39,9 @@ npx ts-node generate_image.ts --aspect 16:9 --size 2K --thinking medium "Your pr
 | `--size`, `-s` | `1K` / `2K` / `4K` (default `2K`) |
 | `--thinking`, `-t` | `minimal` / `medium` / `high` (default `medium`) |
 | `--assets` | Comma-separated **full paths** to reference images (max 10). Never added automatically |
+| `--search` | Ground the image in Google Search (current facts, e.g. today's weather, real data infographics) |
+| `--batch-file F` | **Batch mode, half price**: one prompt per line in file F (`#` = comment). Waits up to `--batch-wait` seconds (default 120), otherwise prints a job name. Outputs `batch_<n>_0.<ext>` |
+| `--batch-get NAME` | Collect results of an earlier batch job |
 | `--output`, `-o` | Output folder (default: current directory) |
 | `--save-to-gallery NAME` | Also save to `assets/gallery/NAME.<ext>` + `.meta.json` for later reuse via `--assets` |
 
@@ -53,6 +56,20 @@ npx ts-node generate_image.ts -a 9:16 -s 4K -t high "Vertical story poster"
 npx ts-node generate_image.ts --assets "/path/logo.png" "Banner using this logo"
 npx ts-node generate_image.ts -o ~/Desktop "Workshop poster"
 ```
+
+### Editing an existing image
+
+Pass the previous image as a reference and describe only the change:
+
+```bash
+npx ts-node generate_image.ts --assets "/path/image_0.jpg" "Keep everything exactly the same, but change the background to light gray"
+```
+
+### When to use which mode
+
+- **Single image now:** default command.
+- **Facts that change (weather, prices, news, real places):** add `--search`.
+- **Many images, not urgent:** `--batch-file` (half price; finished in ~1.5 minutes for 2 prompts in testing, can take longer under load).
 
 ## Pricing (standard, per image — check Google's pricing page for changes)
 
@@ -72,7 +89,7 @@ Flow, reading order, and visual hierarchy must go from RIGHT to LEFT.
 
 ## Brand style
 
-`references/brand_style.txt` is a template. Fill it with your brand and paste its contents into the prompt (or ignore it).
+If `references/brand_style.local.txt` exists (private, git-ignored), read it and add its contents to the prompt whenever the user asks for an image in their brand style. `references/brand_style.txt` is a public template to copy from.
 
 ## API key
 
@@ -96,6 +113,13 @@ Set `GEMINI_API_KEY` in `scripts/.env` (see `SETUP.md`) or as a shell environmen
 
 דוגמת שאלה:
 > לפני שאני מייצר: גודל (1K / **2K** / 4K), יחס (**16:9** / 3:2 / 1:1 / 9:16 / אחר), ורמת מאמץ (minimal / **medium** / high)? אפשר לענות "ברירות מחדל".
+
+## מצבים נוספים
+
+- `--search`: מבסס את התמונה על חיפוש Google (מידע עדכני: מזג אוויר, מחירים, חדשות).
+- `--batch-file קובץ`: מצב Batch במחצית המחיר. פרומפט בכל שורה. ב-2 פרומפטים לקח כ-90 שניות. אם לא הסתיים, מודפס שם משימה, ואוספים אחר כך עם `--batch-get`.
+- **עריכת תמונה קיימת:** מעבירים אותה ב-`--assets` ומתארים רק את השינוי ("שמור הכל זהה, שנה רק את הרקע").
+- אם קיים `references/brand_style.local.txt` (פרטי, לא עולה ל-git), מוסיפים את תוכנו לפרומפט כשמבקשים סגנון מותג.
 
 ## הרצה
 

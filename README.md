@@ -12,6 +12,7 @@ A [Claude Code](https://claude.com/claude-code) skill that generates images and 
 
 - Asks you for **size** (1K/2K/4K), **aspect ratio** and **thinking level** when you don't specify them — defaults: 2K, 16:9, medium.
   שואל על גודל, יחס ורמת מאמץ כשלא צוינו. ברירות מחדל: 2K, 16:9, medium.
+- `--search` (Google Search grounding), `--batch-file` (half-price batch), editing via reference images.
 - 10 aspect ratios, up to 10 reference images, optional gallery for reusing results.
 - Hebrew/RTL prompt guidance. Tip: use `--thinking high` for Hebrew text — in our test `minimal` garbled a title, `high` was correct.
 
@@ -39,6 +40,8 @@ npx ts-node generate_image.ts -a 16:9 -s 2K -t medium "A futuristic city at suns
 | `-a, --aspect` | 1:1, 3:2, 2:3, 3:4, 4:3, 4:5, 5:4, 9:16, 16:9, 21:9 | 16:9 |
 | `-s, --size` | 1K, 2K, 4K | 2K |
 | `-t, --thinking` | minimal, medium, high | medium |
+| `--search` | ground in Google Search | off |
+| `--batch-file` / `--batch-get` | half-price batch mode | – |
 | `--assets` | comma-separated image paths (max 10) | – |
 | `-o, --output` | output folder | `.` |
 | `--save-to-gallery` | name | – |

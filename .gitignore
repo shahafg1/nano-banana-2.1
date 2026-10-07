@@ -8,3 +8,5 @@ image_*.jpg
 image_*.webp
 assets/gallery/
 .DS_Store
+
+brand_style.local.txt

@@ -1,0 +1,10 @@
+.env
+*.env
+!.env.example
+node_modules/
+dist/
+image_*.png
+image_*.jpg
+image_*.webp
+assets/gallery/
+.DS_Store
